@@ -64,13 +64,13 @@ This project showcases my skills, projects, and background as a full-stack devel
 ## 🧪 How to Run the Project
 
 ### 1. Clone the Repository
-bash git clone https://github.com/surendra-yourhandle/codeby-surendra.git
+bash git clone https://github.com/laggisettysurendrakumar/tech-portfolio-website.git
 
-cd codeby-surendra
+cd tech-portfolio-website
 
 ### 2. Run the Backend (ASP.NET Core)
 
-cd server-app
+cd PortfolioAPI
 
 dotnet restore
 
@@ -80,7 +80,7 @@ Backend will run on: https://localhost:5001 (Port will be based on your system)
 
 ### 3. Run the Frontend (Angular 19)
 
-cd client-app
+cd portfolio-frontend
 
 npm install
 
