@@ -1,0 +1,45 @@
+<div class="container my-5" [ngClass]="{ 'dark-form': isDarkMode }">
+
+  <div class="row align-items-center">
+    <!-- Profile Image / Avatar -->
+    <div class="col-md-4 text-center mb-4 mb-md-0">
+      <img [src]="profileImage" alt="My Photo" loading="lazy" class="attractive-img">
+    </div>
+    <!-- About Content -->
+    <div class="col-md-8">
+      <h2 class="mb-4 text-primary">About Me</h2>
+
+      <p class="lead mb-3">
+        Hello! I'm a passionate web developer with expertise in ASP.NET Core, Angular, Bootstrap, and modern UI/UX design. I love creating beautiful, responsive websites that offer great user experiences.
+      </p>
+
+      <h4 class="mb-3 text-secondary">My Skills</h4>
+      <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+        <div class="col" *ngFor="let skill of skills">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="card-body text-center">
+              <i class="{{skill.icon}} mb-3" style="font-size: 2rem;"></i>
+              <h5 class="card-title">{{skill.name}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mb-3 text-secondary">Experience & Education</h4>
+      <ul class="list-group mb-4">
+        <li class="list-group-item">
+          <h6>Software Engineer III at NCR Voyix</h6>
+          <small class="text-muted">2023 - Present</small>
+          <p>Leading Angular projects, building responsive UI components, and implementing best practices in web development.</p>
+        </li>
+        <li class="list-group-item">
+          <h6>BSc in Computer Science</h6>
+          <small class="text-muted">2012 - 2015, Yogivemana University</small>
+          <p>Majored in Computer Science with a focus on web technologies.</p>
+        </li>
+      </ul>
+
+      <a routerLink="/contact" class="btn btn-primary btn-lg">Get in Touch</a>
+    </div>
+  </div>
+</div>

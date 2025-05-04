@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+/* Default variables */
+:root {
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --navbar-bg: #0d6efd;
+  --card-bg: #ffffff;
+  --link-color: #0d6efd;
+  --btn-link-color: #ffffff;
+}
+
+/* Dark Theme */
+body.dark-theme {
+  --bg-color: #121212;
+  --text-color: #f1f1f1;
+  --navbar-bg: #1f1f1f;
+  --card-bg: #1e1e1e;
+  --link-color: #66b2ff;
+  --btn-link-color: #0d6efd;
+}
+
+/* Apply theme globally */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth transition for links */
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: none;
+}
+
+.navbar {
+  background-color: var(--navbar-bg) !important;
+}
+
+.btn-outline-light {
+  color: var(--text-color);
+  border-color: var(--text-color);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark Theme Specific Styles */
+body.dark-theme .navbar {
+  background-color: var(--navbar-bg) !important;
+}
+
+body.dark-theme .card {
+  background-color: var(--card-bg) !important;
+}
+
+body.dark-theme .card-title, 
+body.dark-theme .lead, 
+body.dark-theme h2, h4, h5, h6, p, .list-group-item {
+  color: var(--text-color) !important;
+}
+
+body.dark-theme .btn {
+  background-color: var(--navbar-bg);
+  color: var(--btn-link-color) !important;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-theme .btn-outline-light {
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+/* List Group and Form Styling */
+body.dark-theme .list-group-item {
+  background-color: var(--card-bg) !important;
+  border: none;
+}
+
+body.dark-theme .dark-form {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}

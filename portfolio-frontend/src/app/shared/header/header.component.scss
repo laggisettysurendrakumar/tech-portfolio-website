@@ -1,0 +1,35 @@
+.navbar {
+    border-radius: 0 0 1rem 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -4px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .stylish-link {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .navbar-brand span {
+    letter-spacing: 1px;
+  }
+  

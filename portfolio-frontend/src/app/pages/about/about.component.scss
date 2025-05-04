@@ -1,0 +1,31 @@
+.attractive-img {  
+    max-width: 250px;  
+    width: 100%;  
+    height: auto;  
+    border-radius: 15px; /* adjustable shape */  
+    border: 2px solid #ddd;  
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  
+    object-fit: cover;  
+    display: block;  
+    margin: 20px auto;  
+    transition: transform 0.5s ease, box-shadow 0.5s ease;  
+    transform-origin: center; /* Ensure zoom from center */  
+  }  
+  
+  /* Hover effect: zoom to 180% without disturbing layout */  
+  .attractive-img:hover {  
+    transform: scale(1.8);  
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);  
+    /* Optional: add a higher z-index to overlay */  
+    z-index: 10;  
+    position: relative;  
+  }
+
+  :host {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+
+
+  
