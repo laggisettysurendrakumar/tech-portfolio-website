@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/PortfolioAPI/.vs/PortfolioAPI
+/PortfolioAPI/bin/Debug/net8.0
+/PortfolioAPI/obj
