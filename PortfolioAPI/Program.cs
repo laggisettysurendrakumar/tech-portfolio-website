@@ -10,6 +10,18 @@ namespace PortfolioAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            // Add CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins(builder.Configuration["FrontendURL"]!.ToString()) 
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -34,6 +46,8 @@ namespace PortfolioAPI
                 app.UseSwaggerUI();
             }
 
+            // Use CORS before other middleware like routing
+            app.UseCors("AllowFrontend");
 
             // Configure the HTTP request pipeline.
 
