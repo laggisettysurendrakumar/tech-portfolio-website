@@ -1,0 +1,43 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg rounded" style="width: 100%; max-width: 400px;">
+      <div class="text-center mb-4">
+        <i class="bi bi-shield-lock" style="font-size: 800px;" class="mb-2"></i>
+        <h4 class="fw-bold">Admin Login</h4>
+      </div>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="email"
+            required
+            placeholder="admin@example.com"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="password"
+            required
+            placeholder="Enter your password"
+          />
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </button>
+        </div>
+      </form>
+      <div class="text-center mt-3 text-muted" style="font-size: 0.9rem;">
+        For authorized users only
+      </div>
+    </div>
+  </div>
+  

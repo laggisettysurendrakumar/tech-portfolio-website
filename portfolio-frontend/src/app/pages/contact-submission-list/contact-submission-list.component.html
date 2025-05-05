@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Contact Submissions</h2>
+  
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Contact submissions table -->
+    <div *ngIf="submissions.length > 0; else noData">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Message</th>
+              <th scope="col">Submitted At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let submission of submissions; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ submission.name }}</td>
+              <td>{{ submission.email }}</td>
+              <td>{{ submission.message }}</td>
+              <td>{{ submission.submittedAt | date: 'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- No data message -->
+    <ng-template #noData>
+      <div class="alert alert-info" role="alert">
+        No contact submissions found.
+      </div>
+    </ng-template>
+  </div>
+  

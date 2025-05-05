@@ -32,11 +32,17 @@
           <a class="nav-link stylish-link" routerLink="/contact" routerLinkActive="active">Contact</a>
         </li>
 
+       
+
         <!-- Theme toggle -->
         <li class="nav-item ms-2">
           <button class="btn btn-outline-light rounded-circle" (click)="toggleTheme()" style="width: 40px; height: 40px;">
             <i [ngClass]="isDarkMode ? 'bi bi-sun-fill' : 'bi bi-moon-fill'"></i>
           </button>
+        </li>
+
+        <li class="nav-item" >
+          <button class="btn btn-danger w-100" (click)="toggleLoginStatus()">{{loginStatusText}}</button>
         </li>
       </ul>
     </div>

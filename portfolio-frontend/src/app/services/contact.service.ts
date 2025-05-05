@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ContactSubmission } from '../models/contact-submission.model';
 
 export interface ContactFormDto {
   name: string;
@@ -28,6 +29,13 @@ export class ContactService {
     return this.http.get(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
+  }
+
+  getContactSubmissions(): Observable<ContactSubmission[]> {
+    const token = localStorage.getItem('admintoken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<ContactSubmission[]>(`${this.apiUrl}/GetContactSubmissionList`, { headers });
   }
 
   private handleError(error: HttpErrorResponse) {

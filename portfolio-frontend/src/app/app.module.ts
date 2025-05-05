@@ -13,6 +13,8 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { ContactSubmissionListComponent } from './pages/contact-submission-list/contact-submission-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     AboutComponent,
     ProjectsComponent,
-    ContactComponent
+    ContactComponent,
+    AdminLoginComponent,
+    ContactSubmissionListComponent
   ],
   imports: [
     BrowserModule,
