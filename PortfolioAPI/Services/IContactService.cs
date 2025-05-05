@@ -7,5 +7,6 @@ namespace PortfolioAPI.Services
     {
         Task<ContactFormModel> SaveContactFormAsync(ContactFormDto contact);
         Task<ContactFormModel> GetContactInfoByID(int contactId);
+        Task<List<ContactFormModel>> GetContactSubmissionListAsync();
     }
 }

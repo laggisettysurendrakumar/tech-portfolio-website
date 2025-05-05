@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioAPI.Models.DTO;
 using PortfolioAPI.Services;
@@ -20,6 +21,7 @@ namespace PortfolioAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostContactForm([FromBody] ContactFormDto contactFormDto)
         {
+
             if (contactFormDto == null)
                 return BadRequest("Contact form data is required.");
 
@@ -39,7 +41,7 @@ namespace PortfolioAPI.Controllers
             }
         }
 
-        // Optional: Retrieve contact form entry by ID  
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetContactById(int contactId)
         {
@@ -58,6 +60,27 @@ namespace PortfolioAPI.Controllers
             catch(Exception ex)
             {
                 return StatusCode(500, "Internal server error ex:"+ ex.Message);
+            }
+
+        }
+
+        [Authorize]
+        [HttpGet("GetContactSubmissionList")]
+        public async Task<IActionResult> GetContactSubmissionList()
+        {
+            
+            try
+            {
+                var contactSubmistionsList = await _contactService.GetContactSubmissionListAsync();
+
+                if (contactSubmistionsList == null)
+                    return NotFound("Contact not found.");
+
+                return Ok(contactSubmistionsList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error ex:" + ex.Message);
             }
 
         }

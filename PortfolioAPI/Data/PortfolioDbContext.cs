@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 namespace PortfolioAPI.Data
 {
-    public class AppDbContext : DbContext
+    public class PortfolioDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) : base(options) { }
 
         public DbSet<ContactFormModel> Contacts { get; set; }
+
+        public DbSet<JwtKey> JwtKeys { get; set; } = default!;
 
         // Optional: Seed data or configure via Fluent API here  
     }

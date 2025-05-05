@@ -7,17 +7,23 @@ namespace PortfolioAPI.Services
 {
     public class ContactService : IContactService
     {
-        private readonly AppDbContext _db;
+        private readonly PortfolioDbContext _portfolioDbContext;
 
-        public ContactService(AppDbContext db)
+        public ContactService(PortfolioDbContext portfolioDbContext)
         {
-            _db = db;
+            _portfolioDbContext = portfolioDbContext;
         }
 
         public async Task<ContactFormModel> GetContactInfoByID(int contactId)
         {
-            return await _db.Contacts.FirstOrDefaultAsync(contact => contact.Id == contactId);
+            return await _portfolioDbContext.Contacts.FirstOrDefaultAsync(contact => contact.Id == contactId);
         }
+
+        public async Task<List<ContactFormModel>> GetContactSubmissionListAsync()
+        {
+            return await _portfolioDbContext.Contacts.ToListAsync();
+        }
+
 
         public async Task<ContactFormModel> SaveContactFormAsync(ContactFormDto contact)
         {
@@ -39,8 +45,8 @@ namespace PortfolioAPI.Services
                 SubmittedAt = DateTime.UtcNow
             };
 
-            _db.Contacts.Add(entity);
-            await _db.SaveChangesAsync();
+            _portfolioDbContext.Contacts.Add(entity);
+            await _portfolioDbContext.SaveChangesAsync();
 
             return entity;
         }

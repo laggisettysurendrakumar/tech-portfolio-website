@@ -10,9 +10,9 @@ using PortfolioAPI.Data;
 
 namespace PortfolioAPI.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20250430165215_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(PortfolioDbContext))]
+    [Migration("20250504191900_IntailMigration")]
+    partial class IntailMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,31 @@ namespace PortfolioAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("PortfolioAPI.Models.JwtKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EncryptedKey")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("KeyVersion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JwtKeys");
                 });
 #pragma warning restore 612, 618
         }
