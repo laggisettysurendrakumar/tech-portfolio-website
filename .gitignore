@@ -5,3 +5,4 @@
 /PortfolioAPI/.vs/PortfolioAPI
 /PortfolioAPI/bin/Debug/net8.0
 /PortfolioAPI/obj
+*.bin
