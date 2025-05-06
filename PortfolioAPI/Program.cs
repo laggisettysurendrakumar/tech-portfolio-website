@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using PortfolioAPI.Data;
 using PortfolioAPI.HostedServices;
 using PortfolioAPI.Services;
+using System;
 using System.Text;
 
 namespace PortfolioAPI
@@ -15,9 +16,10 @@ namespace PortfolioAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // EF Core SQLite  
+            // EF Core SQLite 
             builder.Services.AddDbContext<PortfolioDbContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
             // Add custom services
             builder.Services.AddScoped<IContactService, ContactService>();
@@ -29,7 +31,7 @@ namespace PortfolioAPI
             {
                 options.AddPolicy("AllowFrontend", policy =>
                 {
-                    policy.WithOrigins(builder.Configuration["FrontendURL"]!)
+                    policy.WithOrigins(builder.Configuration["FrontendURLProd"]!)
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });

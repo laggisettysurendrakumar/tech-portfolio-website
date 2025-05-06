@@ -15,7 +15,7 @@ export interface ContactFormDto {
   providedIn: 'root',
 })
 export class ContactService {
-  private apiUrl = 'https://localhost:7056/api/Contact';
+  private apiUrl = 'https://www.surendraportfolio.somee.com/api/Contact';
 
   constructor(private http: HttpClient) {}
 

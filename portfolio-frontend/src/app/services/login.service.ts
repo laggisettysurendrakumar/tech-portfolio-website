@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class LoginService {
   private tokenKey = 'admintoken';
-  private apiUrl = 'https://localhost:7056/api/auth/admin-login';
+  private apiUrl = 'https://www.surendraportfolio.somee.com/api/auth/admin-login';
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // expose observable for other components
