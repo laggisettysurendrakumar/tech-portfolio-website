@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private tokenKey = 'admintoken';
-  private apiUrl = 'https://www.surendraportfolio.somee.com/api/auth/admin-login';
+  private baseUrl = environment.apiUrl;
+  private apiUrl = this.baseUrl+'/auth/admin-login';
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // expose observable for other components

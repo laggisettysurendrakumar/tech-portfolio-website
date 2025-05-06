@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ContactSubmission } from '../models/contact-submission.model';
+import { environment } from '../../environments/environment';
 
 export interface ContactFormDto {
   name: string;
@@ -15,7 +16,8 @@ export interface ContactFormDto {
   providedIn: 'root',
 })
 export class ContactService {
-  private apiUrl = 'https://www.surendraportfolio.somee.com/api/Contact';
+  private baseUrl = environment.apiUrl;
+  private apiUrl = this.baseUrl= '/Contact';
 
   constructor(private http: HttpClient) {}
 
