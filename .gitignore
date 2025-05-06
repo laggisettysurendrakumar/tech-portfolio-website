@@ -6,3 +6,4 @@
 /PortfolioAPI/bin/Debug/net8.0
 /PortfolioAPI/obj
 *.bin
+*.dll
