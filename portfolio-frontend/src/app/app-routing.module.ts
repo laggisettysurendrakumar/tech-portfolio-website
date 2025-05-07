@@ -10,20 +10,20 @@ import { ContactSubmissionListComponent } from './pages/contact-submission-list/
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 
 const routes: Routes = [  
-  { path: '', component: HomeComponent }, // default route (home page)  
-  { path: 'about', component: AboutComponent },  
-  { path: 'projects', component: ProjectsComponent },  
-  { path: 'contact', component: ContactComponent },  
-  { path: 'adminlogin', component: AdminLoginComponent },  
-  {
-    path: 'contact-submissions',
-    component: ContactSubmissionListComponent,
-    canActivate: [AdminAuthGuard] // ✅ Guard applied here
-  },
-  
-  // Optional: add a wildcard route for 404 page  
-  // { path: '**', redirectTo: '', pathMatch: 'full' }  
-];  
+  { path: '', component: HomeComponent, data: { title: 'Home | Surendra Kumar Portfolio' } },  
+  { path: 'about', component: AboutComponent, data: { title: 'About Me | Surendra Kumar Portfolio' } },  
+  { path: 'projects', component: ProjectsComponent, data: { title: 'Projects | Surendra Kumar Portfolio' } },  
+  { path: 'contact', component: ContactComponent, data: { title: 'Contact | Surendra Kumar Portfolio' } },  
+  { path: 'admin-login', component: AdminLoginComponent, data: { title: 'Admin Login | Surendra Kumar Portfolio' } },  
+  { 
+    path: 'contact-submissions', 
+    component: ContactSubmissionListComponent, 
+    canActivate: [AdminAuthGuard],
+    data: { title: 'Contact Submissions | Admin | Surendra Kumar Portfolio' } 
+  },  
+  { path: '**', redirectTo: '', pathMatch: 'full' }  // Fallback for undefined routes
+];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

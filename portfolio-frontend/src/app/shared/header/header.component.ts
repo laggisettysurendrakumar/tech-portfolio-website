@@ -33,9 +33,9 @@ export class HeaderComponent implements OnInit {
   toggleLoginStatus(): void {
     if (this.loginService.isLoggedIn()) {
       this.loginService.logout();
-      this.router.navigate(['/adminlogin']);
+      this.router.navigate(['/admin-login']);
     } else {
-      this.router.navigate(['/adminlogin']);
+      this.router.navigate(['/admin-login']);
     }
   
     this.loginService.notifyLoginStatus(); // cleaner, more encapsulated

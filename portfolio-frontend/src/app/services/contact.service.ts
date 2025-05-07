@@ -17,7 +17,7 @@ export interface ContactFormDto {
 })
 export class ContactService {
   private baseUrl = environment.apiUrl;
-  private apiUrl = this.baseUrl= '/Contact';
+  private apiUrl = this.baseUrl+'/Contact';
 
   constructor(private http: HttpClient) {}
 
