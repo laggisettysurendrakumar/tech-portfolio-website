@@ -8,3 +8,12 @@
 *.bin
 *.dll
 /PortfolioAPI/bin
+/PortfolioAPI/wwwroot/media
+/PortfolioAPI/wwwroot/index.html
+/PortfolioAPI/wwwroot/main-JBLPBP3V.js
+/PortfolioAPI/wwwroot/main-UUVXFM46.js
+/PortfolioAPI/wwwroot/styles-4TZFPL57.css
+/PortfolioAPI/wwwroot/styles-HZ7FJNXK.css
+/PortfolioAPI/wwwroot/index.html
+/PortfolioAPI/wwwroot/main-JBLPBP3V.js
+/PortfolioAPI/wwwroot/styles-HZ7FJNXK.css
