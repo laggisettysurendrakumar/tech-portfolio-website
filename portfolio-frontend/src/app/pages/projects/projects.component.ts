@@ -100,7 +100,7 @@ export class ProjectsComponent implements OnInit {
     },
     {
       title: 'FFP',
-      duration: 'Mar 2017 – Nov 2018',
+      duration: 'Aug 2015 – Nov 2018',
       client: 'Air Niugini',
       role: 'Software Engineer',
       type: 'Web Application',
