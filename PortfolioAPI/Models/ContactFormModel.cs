@@ -6,9 +6,13 @@ namespace PortfolioAPI.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }    // Required  
-        public string Email { get; set; }   // Required, valid email  
-        public string Message { get; set; } // Required  
+        [Required]
+        public string Name { get; set; }    
+        [Required]
+        public string Email { get; set; }    
+        [Required]
+        public string Message { get; set; } 
+        [Required]
         public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
     }
 }

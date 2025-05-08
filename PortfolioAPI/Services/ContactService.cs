@@ -16,7 +16,15 @@ namespace PortfolioAPI.Services
 
         public async Task<ContactFormModel> GetContactInfoByID(int contactId)
         {
-            return await _portfolioDbContext.Contacts.FirstOrDefaultAsync(contact => contact.Id == contactId);
+
+            var contact = await _portfolioDbContext.Contacts.FirstOrDefaultAsync(c => c.Id == contactId);
+
+            if (contact == null)
+            {
+                throw new Exception("Contact not found");
+            }
+
+            return contact;
         }
 
         public async Task<List<ContactFormModel>> GetContactSubmissionListAsync()
