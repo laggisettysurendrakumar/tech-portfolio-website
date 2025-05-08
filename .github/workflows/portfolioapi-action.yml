@@ -8,29 +8,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Ensure the token can push changes
 
     steps:
-    # Checkout your code
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Set up .NET
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
-    # Restore and publish .NET
     - name: Publish .NET backend
       run: dotnet publish PortfolioAPI/PortfolioAPI.csproj -c Release -o published-files/backend
 
-    # Set up Node.js for Angular
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
 
-    # Install and build Angular
     - name: Install dependencies
       run: npm ci
       working-directory: portfolio-frontend
@@ -44,11 +41,14 @@ jobs:
         mkdir -p published-files/frontend
         cp -r portfolio-frontend/dist/* published-files/frontend/
 
-    # Commit published files
+    - name: Set up Git credentials
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+
     - name: Commit and push published files
       run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
         git add published-files/
         git commit -m "chore: update published build files" || echo "No changes to commit"
         git push origin main
