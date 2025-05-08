@@ -1,56 +1,54 @@
-# Name of the GitHub Action workflow
-name: Build and Test Full Stack App
+name: Build and Commit Published Files
 
-# Trigger the workflow on push or pull request to main branch
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
-# Define the jobs to run
 jobs:
   build:
-    # Use the latest Ubuntu runner provided by GitHub
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the code from GitHub repo
-    - name: Checkout source code
-      uses: actions/checkout@v4
+    # Checkout your code
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-    # Step 2: Setup .NET SDK (adjust version if needed)
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v4
+    # Set up .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x' # Use .NET 8 (or your current version)
+        dotnet-version: '8.0.x'
 
-    # Step 3: Restore .NET backend dependencies
-    - name: Restore backend dependencies
-      run: dotnet restore ./PortfolioAPI/PortfolioAPI.csproj
+    # Restore and publish .NET
+    - name: Publish .NET backend
+      run: dotnet publish PortfolioAPI/PortfolioAPI.csproj -c Release -o published-files/backend
 
-    # Step 4: Build the .NET Core backend project
-    - name: Build backend
-      run: dotnet build --no-restore ./PortfolioAPI/PortfolioAPI.csproj
-
-    # Optional: Add a test step if you have test projects
-    # - name: Run backend tests
-    #   run: dotnet test ./PortfolioAPI.Tests/PortfolioAPI.Tests.csproj
-
-    # Step 5: Setup Node.js for building Angular frontend
+    # Set up Node.js for Angular
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v3
       with:
         node-version: '18'
 
-    # Step 6: Install Angular frontend dependencies
-    - name: Install frontend dependencies
-      run: npm install
-      working-directory: ./portfolio-frontend
+    # Install and build Angular
+    - name: Install dependencies
+      run: npm ci
+      working-directory: portfolio-frontend
 
-    # Step 7: Build the Angular app
-    - name: Build frontend
+    - name: Build Angular app
       run: npm run build
-      working-directory: ./portfolio-frontend
+      working-directory: portfolio-frontend
 
-    # Optional: You can zip or deploy the frontend later here
+    - name: Copy Angular dist to published folder
+      run: |
+        mkdir -p published-files/frontend
+        cp -r portfolio-frontend/dist/* published-files/frontend/
+
+    # Commit published files
+    - name: Commit and push published files
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add published-files/
+        git commit -m "chore: update published build files" || echo "No changes to commit"
+        git push origin main
