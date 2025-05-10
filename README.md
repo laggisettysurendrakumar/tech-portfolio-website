@@ -7,7 +7,7 @@ I'm Surendra, a passionate full-stack developer focused on building clean, scala
 
 Check out more on my LinkedIn( https://www.linkedin.com/in/surendrakumarlaggisetty/ ) or reach out at: surilsk4@gmail.com
 
-This project showcases my skills, projects, and background as a full-stack developer using Angular 19 for the frontend and ASP.NET Core MVC for the backend.
+This project showcases my skills, projects, and background as a full-stack developer using Angular 19 for the frontend and ASP.NET Core WebAPI for the backend.
 
 ## 🚀 Tech Stack
 
@@ -17,18 +17,19 @@ This project showcases my skills, projects, and background as a full-stack devel
 - SCSS / Bootstrap / (your choice)
 
 **Backend:**
-- ASP.NET Core MVC (.NET 8)
+- ASP.NET Core WebAPI (.NET 8)
 - C#
 - RESTful APIs
 - Entity FrameWork Core
 - MS SQL Server
-- SQLLite
+- SQLLite(optional)
 
 **Other Tools:**
 - Visual Studio / VS Code
 - Git & GitHub
+- CI/CD using GitHub Actions
 - Node.js / npm
-- SQL Server / EF Core (optional)
+- SQL Server / EF Core 
 - Docker (optional)
 
 
@@ -92,7 +93,7 @@ Note : Make sure the API base URL in your Angular services matches your backend 
 
 🌐 Live Demo
 
-(Coming Soon...)
+Surendra Portfolio website : ( https://www.surendraportfolio.somee.com )
 
 Or deploy it using:
 
