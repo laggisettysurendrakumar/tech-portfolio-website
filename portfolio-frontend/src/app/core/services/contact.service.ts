@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ContactSubmission } from '../models/contact-submission.model';
-import { environment } from '../../environments/environment';
+import { ContactSubmission } from '../../models/contact-submission.model';
+import { environment } from '../../../environments/environment';
 
 export interface ContactFormDto {
   name: string;

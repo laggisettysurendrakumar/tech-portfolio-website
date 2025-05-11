@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ReminderActions from './reminder.actions';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { ReminderService } from '../../services/reminder.service'; // ✅ Ensure correct path
+import { ReminderService } from '../../core/services/reminder.service'; // ✅ Ensure correct path
 
 @Injectable()
 export class ReminderEffects {

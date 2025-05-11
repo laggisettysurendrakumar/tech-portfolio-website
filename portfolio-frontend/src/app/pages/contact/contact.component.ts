@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ContactFormDto, ContactService } from '../../services/contact.service';
-import { ThemeService } from '../../services/theme.service';
+import { ContactFormDto, ContactService } from '../../core/services/contact.service';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-contact',

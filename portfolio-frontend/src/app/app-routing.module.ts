@@ -7,7 +7,7 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { ContactComponent } from './pages/contact/contact.component';  
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { ContactSubmissionListComponent } from './pages/contact-submission-list/contact-submission-list.component';
-import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { AdminAuthGuard } from './core/guards/admin-auth.guard';
 import { ReminderListComponent } from './pages/reminder-list/reminder-list.component';
 import { AddReminderComponent } from './pages/add-reminder/add-reminder.component';
 

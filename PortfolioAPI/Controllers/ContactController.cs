@@ -64,7 +64,7 @@ namespace PortfolioAPI.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetContactSubmissionList")]
         public async Task<IActionResult> GetContactSubmissionList()
         {
