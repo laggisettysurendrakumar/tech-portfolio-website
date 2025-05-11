@@ -1,16 +1,19 @@
 ﻿using PortfolioAPI.Services.Contracts;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Microsoft.Extensions.Logging;
 
 namespace PortfolioAPI.Services.Implementations
 {
     public class TwilioSmsSender : ISmsSender
     {
         private readonly IConfiguration _config;
+        private readonly ILogger<TwilioSmsSender> _logger;
 
-        public TwilioSmsSender(IConfiguration config)
+        public TwilioSmsSender(IConfiguration config, ILogger<TwilioSmsSender> logger)
         {
             _config = config;
+            _logger = logger;
 
             TwilioClient.Init(
                 _config["Twilio:AccountSid"],
@@ -24,41 +27,32 @@ namespace PortfolioAPI.Services.Implementations
             {
                 var fromPhone = _config["Twilio:FromPhone"];
 
-                // Ensure that the fromPhone and toPhoneNumber are valid
                 if (string.IsNullOrEmpty(fromPhone) || string.IsNullOrEmpty(toPhoneNumber))
                 {
+                    _logger.LogError("FromPhone or ToPhoneNumber is null or empty. From: '{From}', To: '{To}'", fromPhone, toPhoneNumber);
                     throw new ArgumentException("Phone number cannot be null or empty.");
                 }
 
-                // Send SMS using Twilio API
                 var result = await MessageResource.CreateAsync(
                     body: message,
                     from: new Twilio.Types.PhoneNumber(fromPhone),
                     to: new Twilio.Types.PhoneNumber(toPhoneNumber)
                 );
 
-                // You can log the result or take further actions if needed
-                Console.WriteLine($"Message sent: {result.Sid}");
+                _logger.LogInformation("SMS sent successfully. SID: {Sid}", result.Sid);
             }
             catch (ArgumentException ex)
             {
-                // Handle specific argument exceptions
-                Console.Error.WriteLine($"Argument error: {ex.Message}");
-                // You can log this error to a logging framework like Serilog, NLog, etc.
+                _logger.LogWarning(ex, "Invalid argument provided: {Message}", ex.Message);
             }
             catch (Twilio.Exceptions.ApiException ex)
             {
-                // Handle Twilio-specific API exceptions
-                Console.Error.WriteLine($"Twilio API error: {ex.Message}");
-                // You can log this error to a logging framework
+                _logger.LogError(ex, "Twilio API error: {Message}", ex.Message);
             }
             catch (Exception ex)
             {
-                // Catch any other general exceptions
-                Console.Error.WriteLine($"An unexpected error occurred: {ex.Message}");
-                // You can log this error to a logging framework
+                _logger.LogCritical(ex, "Unexpected error occurred while sending SMS: {Message}", ex.Message);
             }
         }
-
     }
 }

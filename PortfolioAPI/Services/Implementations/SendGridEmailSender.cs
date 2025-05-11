@@ -1,49 +1,55 @@
 ﻿using PortfolioAPI.Services.Contracts;
 using SendGrid.Helpers.Mail;
 using SendGrid;
+using Microsoft.Extensions.Logging;
 
 namespace PortfolioAPI.Services.Implementations
 {
     public class SendGridEmailSender : IEmailSender
     {
-
         private readonly string _apiKey;
         private readonly string _senderEmail;
         private readonly string _senderName;
         private readonly IHostEnvironment _env;
+        private readonly ILogger<SendGridEmailSender> _logger;
 
-        public SendGridEmailSender(IConfiguration config , IHostEnvironment env)
+        public SendGridEmailSender(IConfiguration config, IHostEnvironment env, ILogger<SendGridEmailSender> logger)
         {
             _apiKey = config["SendGrid:ApiKey"];
             _senderEmail = config["SendGrid:SenderEmail"];
             _senderName = config["SendGrid:SenderName"];
-            _env = env; 
+            _env = env;
+            _logger = logger;
         }
 
         public async Task SendEmailAsync(string toEmail, string subject, string body, string userName)
         {
             try
             {
+                _logger.LogInformation("Preparing to send email to {Recipient}", toEmail);
+
                 if (string.IsNullOrEmpty(_apiKey) || string.IsNullOrEmpty(_senderEmail))
                 {
-                    throw new ArgumentException("SendGrid configuration is invalid.");
+                    var error = "SendGrid configuration is invalid.";
+                    _logger.LogError(error);
+                    throw new ArgumentException(error);
                 }
-
 
                 // Load HTML template
                 var templatePath = Path.Combine(_env.ContentRootPath, "Resources", "EmailTemplates", "ThankYouTemplate.html");
                 if (!File.Exists(templatePath))
-                    throw new FileNotFoundException("Email template not found at path:", templatePath);
+                {
+                    var error = $"Email template not found at path: {templatePath}";
+                    _logger.LogError(error);
+                    throw new FileNotFoundException(error);
+                }
 
                 string htmlBody = await File.ReadAllTextAsync(templatePath);
-                
-                //Replace placeholders if needed
                 htmlBody = htmlBody.Replace("##username##", userName);
 
-
                 var client = new SendGridClient(_apiKey);
-                var from = new SendGrid.Helpers.Mail.EmailAddress(_senderEmail, _senderName);
-                var to = new SendGrid.Helpers.Mail.EmailAddress(toEmail);
+                var from = new EmailAddress(_senderEmail, _senderName);
+                var to = new EmailAddress(toEmail);
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent: "Thank you for contacting me.", htmlContent: htmlBody);
 
                 var response = await client.SendEmailAsync(msg);
@@ -51,18 +57,19 @@ namespace PortfolioAPI.Services.Implementations
                 if ((int)response.StatusCode >= 400)
                 {
                     var errorDetails = await response.Body.ReadAsStringAsync();
-                    throw new Exception($"SendGrid email failed with status {(int)response.StatusCode}: {errorDetails}");
+                    _logger.LogError("SendGrid email failed with status {StatusCode}: {Details}", response.StatusCode, errorDetails);
+                    throw new Exception($"SendGrid email failed: {errorDetails}");
                 }
 
-                Console.WriteLine($"Email sent to {toEmail}");
+                _logger.LogInformation("Email successfully sent to {Recipient}", toEmail);
             }
             catch (ArgumentException ex)
             {
-                Console.Error.WriteLine($"Configuration error: {ex.Message}");
+                _logger.LogError(ex, "Configuration error while sending email.");
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Unexpected error sending email: {ex.Message}");
+                _logger.LogError(ex, "Unexpected error occurred while sending email.");
             }
         }
     }

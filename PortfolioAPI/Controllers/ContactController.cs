@@ -15,13 +15,15 @@ namespace PortfolioAPI.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger<ContactController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public ContactController(IContactService contactService, IEmailSender emailSender, ISmsSender smsSender, ILogger<ContactController> logger)
+        public ContactController(IContactService contactService, IEmailSender emailSender, ISmsSender smsSender, ILogger<ContactController> logger, IConfiguration configuration)
         {
             _contactService = contactService;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = logger;
+            _configuration = configuration;
         }
 
 
@@ -49,8 +51,17 @@ namespace PortfolioAPI.Controllers
 
                 // Send email and SMS notifications
                 var message = $"From: {contactFormDto.Name} ({contactFormDto.Email})\n\n{contactFormDto.Message}";
-                await _emailSender.SendEmailAsync(contactFormDto.Email, "Contact Form Submission", message, contactFormDto.Name);
-               // await _smsSender.SendSmsAsync("+918886079906", $"New message from {contactFormDto.Name}: {contactFormDto.Message}");
+
+
+                if (_configuration["EnableEmailService"]!.ToLower() == "yes")
+                {
+                    await _emailSender.SendEmailAsync(contactFormDto.Email, "Contact Form Submission", message, contactFormDto.Name);
+
+                }
+                if (_configuration["EnableSMSService"]!.ToLower() == "yes")
+                {
+                    await _smsSender.SendSmsAsync("+918886079906", $"New message from {contactFormDto.Name}: {contactFormDto.Message}");
+                }
 
                 _logger.LogInformation("Contact form submitted successfully by: {UserEmail} at {Timestamp}", contactFormDto.Email, DateTime.UtcNow);
 
