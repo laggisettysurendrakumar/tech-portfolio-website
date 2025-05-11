@@ -12,6 +12,8 @@ namespace PortfolioAPI.Data
 
         public DbSet<JwtKey> JwtKeys { get; set; } = default!;
 
+        public DbSet<Reminder> Reminders { get; set; }
+
         // Optional: Seed data or configure via Fluent API here  
     }
 }
