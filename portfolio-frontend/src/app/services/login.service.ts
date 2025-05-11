@@ -22,6 +22,7 @@ export class LoginService {
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('role');
     this.isLoggedInSubject.next(false); // notify subscribers
   }
 

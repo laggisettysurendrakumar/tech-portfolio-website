@@ -54,6 +54,7 @@ export class AdminLoginComponent {
     this.loginService.login(this.email, encryptedPassword).subscribe({
       next: (response) => {
         localStorage.setItem('admintoken', response.token);
+        localStorage.setItem('role','admin');
         // ✅ Notify app of updated login status
         this.loginService.notifyLoginStatus();
         this.router.navigate(['/contact-submissions']);

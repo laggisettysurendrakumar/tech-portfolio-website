@@ -4,6 +4,12 @@ import { Store } from '@ngrx/store';
 import { loadReminders } from '../../store/reminder/reminder.actions';
 import { selectAllReminders } from '../../store/reminder/reminder.selectors';
 
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+
 @Component({
   selector: 'app-reminder-list',
   templateUrl: './reminder-list.component.html',
@@ -32,7 +38,53 @@ export class ReminderListComponent implements OnInit {
     }[this.sortOrder];
   }
 
-  exportToExcel() {
-    // Excel logic (uncomment when ready)
-  }
+  exportToExcel(): void {
+  const cleanedData = this.filteredReminders?.map(r => ({
+    Company: r.companyName,
+    Amount: r.amount,
+    Description: r.description,
+    Done: r.done ? 'Yes' : 'No'
+  })) || [];
+
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(cleanedData);
+  const workbook: XLSX.WorkBook = {
+    Sheets: { 'Reminders': worksheet },
+    SheetNames: ['Reminders']
+  };
+  const buffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const blob: Blob = new Blob([buffer], { type: 'application/octet-stream' });
+  FileSaver.saveAs(blob, 'reminders.xlsx');
+}
+
+exportToCSV(): void {
+  const cleanedData = this.filteredReminders?.map(r => ({
+    Company: r.companyName,
+    Amount: r.amount,
+    Description: r.description,
+    Done: r.done ? 'Yes' : 'No'
+  })) || [];
+
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(cleanedData);
+  const csv: string = XLSX.utils.sheet_to_csv(worksheet);
+  const blob: Blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  FileSaver.saveAs(blob, 'reminders.csv');
+}
+
+exportToPDF(): void {
+  const doc = new jsPDF();
+  const rows = this.filteredReminders?.map(r => [
+  r.companyName ?? '',
+  String(r.amount ?? ''),
+  r.description ?? '',
+  r.done ? 'Yes' : 'No'
+]) || [];
+
+  autoTable(doc, {
+    head: [['Company', 'Amount', 'Description', 'Done']],
+    body: rows
+  });
+
+  doc.save('reminders.pdf');
+}
+
 }
