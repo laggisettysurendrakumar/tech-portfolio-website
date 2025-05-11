@@ -1,0 +1,21 @@
+<div class="card p-3">
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-2">
+      <label class="form-label">Company Name</label>
+      <input class="form-control" [(ngModel)]="reminder.companyName" name="companyName" required>
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Amount</label>
+      <input class="form-control" [(ngModel)]="reminder.amount" name="amount">
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" [(ngModel)]="reminder.description" name="description"></textarea>
+    </div>
+    <div class="form-check mb-2">
+      <input type="checkbox" class="form-check-input" [(ngModel)]="reminder.done" name="done">
+      <label class="form-check-label">Done</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Reminder</button>
+  </form>
+</div>

@@ -34,10 +34,10 @@ export class ContactService {
   }
 
   getContactSubmissions(): Observable<ContactSubmission[]> {
-    const token = localStorage.getItem('admintoken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return this.http.get<ContactSubmission[]>(`${this.apiUrl}/GetContactSubmissionList`, { headers });
+  
+    return this.http.get<ContactSubmission[]>(`${this.apiUrl}/GetContactSubmissionList`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

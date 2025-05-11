@@ -5,6 +5,11 @@
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
       {{ errorMessage }}
     </div>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+  <p>Loading...</p> <!-- You can replace this with a spinner icon -->
+   </div>
+
   
     <!-- Contact submissions table -->
     <div *ngIf="submissions.length > 0; else noData">
@@ -16,7 +21,7 @@
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Message</th>
-              <th scope="col">Submitted At</th>
+              <th scope="col">Submitted</th>
             </tr>
           </thead>
           <tbody>

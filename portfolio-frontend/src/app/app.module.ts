@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,9 +12,17 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { ContactSubmissionListComponent } from './pages/contact-submission-list/contact-submission-list.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AddReminderComponent } from './pages/add-reminder/add-reminder.component';
+import { ReminderListComponent } from './pages/reminder-list/reminder-list.component';
+import { reminderReducer } from './store/reminder/reminder.reducer';
+import { ReminderEffects } from './store/reminder/reminder.effects';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +35,9 @@ import { ContactSubmissionListComponent } from './pages/contact-submission-list/
     ProjectsComponent,
     ContactComponent,
     AdminLoginComponent,
-    ContactSubmissionListComponent
+    ContactSubmissionListComponent,
+    AddReminderComponent,
+    ReminderListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +45,18 @@ import { ContactSubmissionListComponent } from './pages/contact-submission-list/
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({ reminders: reminderReducer }),  
+    EffectsModule.forRoot([ReminderEffects]),  
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: true })
 ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true, // This allows multiple interceptors
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
