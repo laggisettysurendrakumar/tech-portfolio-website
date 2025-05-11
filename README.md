@@ -87,6 +87,24 @@ npm install
 
 ng serve
 
+## 🔄 Clean Build (No Cache) — Windows
+
+If you're experiencing dependency injection or stale build issues, use the following commands to perform a clean rebuild on Windows:
+
+```bash
+rd /s /q dist
+rd /s /q node_modules
+npm cache clean --force
+npm install
+npx ng serve --no-cache
+```
+This will:
+Delete previous build output and dependencies
+Clear npm cache
+Reinstall fresh dependencies
+Start the dev server without Angular's internal cache
+
+
 Frontend will run on: http://localhost:4200 (Port will be based on your system)
 
 Note : Make sure the API base URL in your Angular services matches your backend URL.
