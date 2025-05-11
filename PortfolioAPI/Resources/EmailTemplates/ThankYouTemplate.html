@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thank You for Contacting Me</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 30px;
+        }
+
+        .email-container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 25px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .project {
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+
+            .project h4 {
+                color: #333;
+                margin-bottom: 10px;
+                font-size: 22px;
+            }
+
+        .accomplishments li {
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+        }
+
+        .skills-list li, .accomplishments li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .skills-list li {
+            padding-left: 20px;
+            position: relative;
+        }
+
+            .skills-list li::before {
+                content: '✔';
+                position: absolute;
+                left: 0;
+                color: #4a90e2;
+            }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 20px;
+        }
+
+        /* Add spacing and coloring to the list */
+        ul.skills-list, ul.accomplishments {
+            padding-left: 20px;
+            list-style-type: none;
+        }
+
+        .text-primary {
+            color: #007bff !important;
+        }
+
+        .text-success {
+            color: #28a745 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="email-container">
+        <h2 class="header">Thank You for Contacting Me!</h2>
+        <p class="lead">Hello <strong>##username##</strong>,</p>
+        <p>I appreciate you reaching out. Below is a summary of my skills and project work for your reference:</p>
+
+        <h3 class="text-primary">🔧 Backend Skills</h3>
+        <ul class="list-unstyled skills-list">
+            <li>ASP.NET MVC / .NET Core</li>
+            <li>Web API, RESTful services</li>
+            <li>SQL Server, Entity Framework</li>
+            <li>Azure DevOps CI/CD</li>
+            <li>SVN, Git</li>
+        </ul>
+
+        <h3 class="text-success">🖥️ Frontend Skills</h3>
+        <ul class="list-unstyled skills-list">
+            <li>HTML/CSS, Bootstrap</li>
+            <li>Angular 14, jQuery, Javascript</li>
+        </ul>
+
+
+        <h3 class="text-success">📁 Projects</h3>
+
+        <!-- Project 1 -->
+        <div class="project">
+            <h4>MOBOX (Mar 2021 – Jun 2023)</h4>
+            <p><strong>Client:</strong> Tech Mahindra<br><strong>Role:</strong> Sr. Software Engineer<br><strong>Technologies:</strong> ASP.NET MVC5, Web API, jQuery, Bootstrap</p>
+            <p>Subscription-based tire and car maintenance service for Europe.</p>
+            <ul class="list-unstyled accomplishments">
+                <li>✅ Designed responsive apps for European clients</li>
+                <li>✅ Optimized DB queries and indexing</li>
+                <li>✅ Integrated RESTful APIs</li>
+                <li>✅ Led code reviews and peer programming</li>
+                <li>✅ Automated CI/CD with Azure DevOps</li>
+            </ul>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project">
+            <h4>My Assignments (May 2019 – Feb 2021)</h4>
+            <p><strong>Client:</strong> Accenture<br><strong>Role:</strong> Software Engineer<br><strong>Technologies:</strong> .NET MVC, SQL Server, jQuery, Bootstrap</p>
+            <p>Tool for managing sales report attributes.</p>
+            <ul class="list-unstyled accomplishments">
+                <li>✅ Maintained reporting web apps</li>
+                <li>✅ Implemented data migration</li>
+                <li>✅ RCA for production bugs</li>
+                <li>✅ Created dynamic SSRS reports</li>
+            </ul>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project">
+            <h4>Reliance Mutual Fund (Dec 2018 – May 2019)</h4>
+            <p><strong>Client:</strong> Karvy (Reliance)<br><strong>Role:</strong> Software Engineer<br><strong>Technologies:</strong> ASP.NET MVC, SQL Server, Web Services</p>
+            <p>Online transactions and portfolio management tool.</p>
+            <ul class="list-unstyled accomplishments">
+                <li>✅ Built secure transaction flows</li>
+                <li>✅ API integration for payments</li>
+                <li>✅ Handled validations and auth</li>
+                <li>✅ Deployed via Git & SVN</li>
+            </ul>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project">
+            <h4>FFP (Aug 2015 – Nov 2018)</h4>
+            <p><strong>Client:</strong> Air Niugini<br><strong>Role:</strong> Software Engineer<br><strong>Technologies:</strong> ASP.NET MVC, SQL Server, Web Services</p>
+            <p>Loyalty and travel history management system.</p>
+            <ul class="list-unstyled accomplishments">
+                <li>✅ Debugged production issues</li>
+                <li>✅ Developed BO/bean classes</li>
+                <li>✅ Created required web services</li>
+                <li>✅ Managed critical bug delivery</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Best Regards,<br><strong>Surendra Kumar Laggisetty</strong><br>Sr. .NET Developer</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & Popper.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -5,9 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PortfolioAPI.Data;
 using PortfolioAPI.HostedServices;
-using PortfolioAPI.Services;
+using PortfolioAPI.Services.Contracts;
+using PortfolioAPI.Services.Implementations;
+using Serilog.Events;
+using Serilog;
 using System;
 using System.Text;
+using Serilog.Exceptions;
 
 namespace PortfolioAPI
 {
@@ -16,6 +20,22 @@ namespace PortfolioAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
+            // Configure Serilog
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .Enrich.WithExceptionDetails()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Information()
+                .WriteTo.Console()
+                .WriteTo.File($"Logs/log-{env}-.txt",
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 7,
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj} {Exception}{NewLine}")
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
 
             // EF Core SQLite 
             builder.Services.AddDbContext<PortfolioDbContext>(options =>
@@ -30,9 +50,18 @@ namespace PortfolioAPI
             // CORS Configuration
             builder.Services.AddCors(options =>
             {
+                string crosOrginURL = "";
+                if (env == "Production")
+                {
+                    crosOrginURL = builder.Configuration["FrontendURLProd"]!;
+                }
+                else
+                {
+                    crosOrginURL =  builder.Configuration["FrontendURL"]!;
+                }
                 options.AddPolicy("AllowFrontend", policy =>
                 {
-                    policy.WithOrigins(builder.Configuration["FrontendURLProd"]!)
+                    policy.WithOrigins(crosOrginURL)
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
@@ -77,6 +106,11 @@ namespace PortfolioAPI
                 });
             });
 
+
+            builder.Services.AddHttpClient();
+            builder.Services.AddScoped<IEmailSender, SendGridEmailSender>();
+            builder.Services.AddSingleton<ISmsSender, TwilioSmsSender>();
+
             var app = builder.Build();
 
             // Dynamically configure JwtBearer options after DI container is built
@@ -86,7 +120,7 @@ namespace PortfolioAPI
                 string currentVersion = DateTime.UtcNow.ToString("yyyyMMddHH");
                 var signingKey = keyManager.GetKeyAsync(currentVersion).GetAwaiter().GetResult();
 
-                if (!signingKey.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(signingKey))
                 {
                     var jwtBearerOptions = app.Services.GetRequiredService<IOptionsMonitor<JwtBearerOptions>>();
                     jwtBearerOptions.Get(JwtBearerDefaults.AuthenticationScheme).TokenValidationParameters = new TokenValidationParameters

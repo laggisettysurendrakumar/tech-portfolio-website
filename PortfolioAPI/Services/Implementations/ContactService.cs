@@ -2,8 +2,9 @@
 using PortfolioAPI.Models.DTO;
 using PortfolioAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using PortfolioAPI.Services.Contracts;
 
-namespace PortfolioAPI.Services
+namespace PortfolioAPI.Services.Implementations
 {
     public class ContactService : IContactService
     {

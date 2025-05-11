@@ -1,7 +1,7 @@
 ﻿using PortfolioAPI.Models.DTO;
 using PortfolioAPI.Models;
 
-namespace PortfolioAPI.Services
+namespace PortfolioAPI.Services.Contracts
 {
     public interface IContactService
     {

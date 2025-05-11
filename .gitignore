@@ -52,3 +52,7 @@ publish/
 *.csproj.user
 *.pubxml.user
 PortfolioAPI/Properties/PublishProfiles/FolderProfile.pubxml.user
+
+Logs/
+*.log
+*.txt

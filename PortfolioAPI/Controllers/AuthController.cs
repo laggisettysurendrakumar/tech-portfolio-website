@@ -14,12 +14,14 @@ using System.Text;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
-    private readonly JwtKeyManagerService  _jwtKeyManagerService;
+    private readonly JwtKeyManagerService _jwtKeyManagerService;
+    private readonly ILogger<AuthController> _logger;
 
-    public AuthController(IConfiguration config, JwtKeyManagerService jwtKeyManagerService)
+    public AuthController(IConfiguration config, JwtKeyManagerService jwtKeyManagerService, ILogger<AuthController> logger)
     {
         _configuration = config;
         _jwtKeyManagerService = jwtKeyManagerService;
+        _logger = logger;
     }
 
     [HttpPost("admin-login")]
@@ -27,11 +29,24 @@ public class AuthController : ControllerBase
     {
         try
         {
+            if (model == null)
+            {
+                _logger.LogError("AdminLogin failed: Request body is null.");
+                return BadRequest("Request body is required.");
+            }
 
             var clientKey = _configuration["Encryption:ClientKey"]!;
+            var keyBase64 = _configuration["Encryption:keyBase64"]!;
+            var ivBase64 = _configuration["Encryption:ivBase64"]!;
 
-            const string keyBase64 = "mZp9cUHQaYF0wAnJSF6xAx/9v2+/ZkBGNz4H1z5HezY=";
-            const string ivBase64 = "MTIzNDU2Nzg5MGFiY2RlZg==";
+            // Validate if necessary configuration values exist
+            if (string.IsNullOrEmpty(clientKey) || string.IsNullOrEmpty(keyBase64) ||
+                string.IsNullOrEmpty(ivBase64) || string.IsNullOrEmpty(_configuration["AdminInfo:UserId"]) ||
+                string.IsNullOrEmpty(_configuration["AdminInfo:Password"]))
+            {
+                _logger.LogError("AdminLogin failed: Missing configuration values.");
+                return StatusCode(500, "Internal server error: Missing configuration values.");
+            }
 
             string decryptedPassword = AesEncryption.DecryptClientKey(model.Password, keyBase64, ivBase64);
 
@@ -54,13 +69,16 @@ public class AuthController : ControllerBase
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+                _logger.LogInformation("AdminLogin succeeded for user: {UserEmail} at {Timestamp}", model.Email, DateTime.UtcNow);
+
                 return Ok(new { token = tokenHandler.WriteToken(token) });
             }
-
+            _logger.LogWarning("AdminLogin failed: Invalid credentials for user: {UserEmail}", model.Email);
             return Unauthorized("Invalid credentials");
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "An error occurred during admin login for user: {UserEmail}", model.Email);
             return BadRequest(ex.Message);
         }
     }
