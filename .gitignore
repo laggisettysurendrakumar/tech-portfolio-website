@@ -2,23 +2,53 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/PortfolioAPI/.vs/PortfolioAPI
-/PortfolioAPI/bin/Debug/net8.0
-/PortfolioAPI/obj
-*.bin
-*.dll
-/PortfolioAPI/bin
-/PortfolioAPI/wwwroot/media
-/PortfolioAPI/wwwroot/index.html
-/PortfolioAPI/wwwroot/main-JBLPBP3V.js
-/PortfolioAPI/wwwroot/main-UUVXFM46.js
-/PortfolioAPI/wwwroot/styles-4TZFPL57.css
-/PortfolioAPI/wwwroot/styles-HZ7FJNXK.css
-/PortfolioAPI/wwwroot/index.html
-/PortfolioAPI/wwwroot/main-JBLPBP3V.js
-/PortfolioAPI/wwwroot/styles-HZ7FJNXK.css
-/PortfolioAPI/wwwroot/index.html
-/PortfolioAPI/wwwroot/main-JBLPBP3V.js
-/PortfolioAPI/wwwroot/styles-HZ7FJNXK.css
-/PortfolioAPI/Properties/PublishProfiles
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Database files (local SQL Server, SQLite, etc.)
+*.db
+*.mdf
+*.ldf
+
+# EF Core Migrations — KEEP these!
+!**/Migrations/*.cs
+!**/Migrations/*.Designer.cs
+!**/Migrations/*Snapshot.cs
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.ncb
+*.aps
+*.sdf
+*.opensdf
+*.cache
+*.dbmdl
+
+# Rider / JetBrains IDE
+.idea/
+
+# ASP.NET generated files
+wwwroot/
+
+# Environment files — DON'T commit secrets!
+appsettings.*.json
+*.env
+
+# Optional: Ignore publish output
+publish/
+
+
+*.csproj.user
+*.pubxml.user
 PortfolioAPI/Properties/PublishProfiles/FolderProfile.pubxml.user
