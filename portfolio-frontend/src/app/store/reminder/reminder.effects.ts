@@ -8,6 +8,7 @@ import { ReminderService } from '../../core/services/reminder.service'; // ✅ E
 export class ReminderEffects {
   loadReminders$;
   addReminder$;
+  updateReminder$;
 
   constructor(private actions$: Actions, private service: ReminderService) {
     console.log('[ReminderEffects] Constructed:', !!service);
@@ -35,5 +36,16 @@ export class ReminderEffects {
         )
       )
     );
+
+    this.updateReminder$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(ReminderActions.updateReminder),
+    mergeMap(({ reminder }) =>
+      this.service.updateReminder(reminder).pipe(
+        map(updated => ReminderActions.updateReminderSuccess({ reminder: updated }))
+      )
+    )
+  )
+);
   }
 }

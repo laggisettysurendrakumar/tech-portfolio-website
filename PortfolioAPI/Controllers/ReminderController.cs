@@ -28,7 +28,8 @@ namespace PortfolioAPI.Controllers
             {
                 _logger.LogInformation("GetAllReminderList method invoked at {Timestamp}", DateTime.UtcNow);
 
-                var reminders = _context.Reminders.ToList();
+                var reminders = _context.Reminders
+                    .OrderByDescending(r => r.CreatedDate).ToList();
 
                 if (reminders == null || !reminders.Any())
                 {
@@ -78,6 +79,46 @@ namespace PortfolioAPI.Controllers
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public IActionResult UpdateReminder(int id, [FromBody] Reminder updatedReminder)
+        {
+            if (updatedReminder == null || updatedReminder.Id != id)
+            {
+                _logger.LogWarning("UpdateReminder failed: Invalid reminder data for id {ReminderId}", id);
+                return BadRequest("Invalid reminder data.");
+            }
+
+            var existingReminder = _context.Reminders.FirstOrDefault(r => r.Id == id);
+
+            if (existingReminder == null)
+            {
+                _logger.LogWarning("UpdateReminder failed: Reminder with id {ReminderId} not found.", id);
+                return NotFound($"Reminder with id {id} not found.");
+            }
+
+            try
+            {
+                // Update the properties
+                existingReminder.CompanyName = updatedReminder.CompanyName;
+                existingReminder.Description = updatedReminder.Description;
+                existingReminder.Amount = updatedReminder.Amount;
+                existingReminder.Done = updatedReminder.Done;
+                existingReminder.CreatedDate = DateTime.UtcNow; 
+
+                _context.SaveChanges();
+
+                _logger.LogInformation("Reminder with id {ReminderId} successfully updated.", id);
+                return Ok(existingReminder);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating the reminder with id {ReminderId}.", id);
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
+
 
     }
 }

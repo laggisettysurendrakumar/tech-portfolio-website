@@ -11,5 +11,9 @@ export const reminderReducer = createReducer(
   on(ReminderActions.addReminderSuccess, (state, { reminder }) => ({
     ...state,
     reminders: [...state.reminders, reminder],
-  }))
+  })),
+  on(ReminderActions.updateReminderSuccess, (state, { reminder }) => ({
+  ...state,
+  reminders: state.reminders.map(r => r.id === reminder.id ? reminder : r)
+}))
 );

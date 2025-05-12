@@ -22,4 +22,8 @@ export class ReminderService {
   addReminder(reminder: Reminder): Observable<Reminder> {
     return this.http.post<Reminder>(this.apiUrl+"/AddReminder", reminder);
   }
+
+  updateReminder(reminder: Reminder): Observable<Reminder> { 
+  return this.http.put<Reminder>(`${this.apiUrl}/${reminder.id}`, reminder);
+  }
 }
