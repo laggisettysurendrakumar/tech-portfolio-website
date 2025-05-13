@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { LoginService } from '../../core/services/login.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -19,7 +20,8 @@ export class AdminLoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private notificationService : NotificationService
   ) {}
 
 
@@ -53,6 +55,7 @@ export class AdminLoginComponent {
 
     this.loginService.login(this.email, encryptedPassword).subscribe({
       next: (response) => {
+        this.notificationService.showSuccess('Login successful!');
         localStorage.setItem('admintoken', response.token);
         localStorage.setItem('role','admin');
         // ✅ Notify app of updated login status
@@ -61,6 +64,7 @@ export class AdminLoginComponent {
         this.loading = false;
       },
       error: (err) => {
+         this.notificationService.showError('Login failed');
         this.errorMessage = err.error?.message || 'Login failed';
         this.loading = false;
       }

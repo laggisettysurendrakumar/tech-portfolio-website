@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-reminder-list',
@@ -22,7 +23,7 @@ export class ReminderListComponent implements OnInit {
 
   @ViewChild('editForm') editFormElement?: ElementRef;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private notificationService : NotificationService) {}
 
   ngOnInit() {
     this.store.dispatch(loadReminders());
@@ -53,6 +54,7 @@ export class ReminderListComponent implements OnInit {
     const buffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blob: Blob = new Blob([buffer], { type: 'application/octet-stream' });
     FileSaver.saveAs(blob, 'reminders.xlsx');
+    this.notificationService.showSuccess('Reminder list downloaded as Excel!');
   }
 
   exportToCSV(): void {
@@ -67,6 +69,7 @@ export class ReminderListComponent implements OnInit {
     const csv: string = XLSX.utils.sheet_to_csv(worksheet);
     const blob: Blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     FileSaver.saveAs(blob, 'reminders.csv');
+     this.notificationService.showSuccess('Reminder list downloaded as CSV!');
   }
 
   exportToPDF(): void {
@@ -84,6 +87,7 @@ export class ReminderListComponent implements OnInit {
     });
 
     doc.save('reminders.pdf');
+     this.notificationService.showSuccess('Reminder list downloaded as PDF!');
   }
 
   edit(reminder: Reminder) {
@@ -103,6 +107,7 @@ export class ReminderListComponent implements OnInit {
     if (this.editingReminder) {
       this.store.dispatch(updateReminder({ reminder: this.editingReminder }));
       this.editingReminder = null;
+      this.notificationService.showSuccess('Reminder data updated successfully!');
     }
   }
 }

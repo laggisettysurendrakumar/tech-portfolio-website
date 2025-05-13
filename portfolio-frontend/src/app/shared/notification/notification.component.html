@@ -1,0 +1,12 @@
+<div
+  *ngIf="notification"
+  class="alert alert-dismissible position-fixed bottom-0 end-0 m-3 fade"
+  [class.show]="visible"
+  [ngClass]="alertClass"
+  [ngStyle]="customStyle"
+  style="z-index: 1050; min-width: 250px;"
+  role="alert"
+>
+  <span *ngIf="notification?.type === 'success'"></span>
+  {{ notification.message }}
+</div>

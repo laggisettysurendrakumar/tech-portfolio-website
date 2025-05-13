@@ -66,6 +66,7 @@ namespace PortfolioAPI.Controllers
 
             try
             {
+                reminder.CreatedDate = DateTime.Now;
                 _context.Reminders.Add(reminder);
                 _context.SaveChanges();
 

@@ -23,6 +23,7 @@ import { ReminderListComponent } from './pages/reminder-list/reminder-list.compo
 import { reminderReducer } from './store/reminder/reminder.reducer';
 import { ReminderEffects } from './store/reminder/reminder.effects';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { NotificationComponent } from './shared/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     AdminLoginComponent,
     ContactSubmissionListComponent,
     AddReminderComponent,
-    ReminderListComponent
+    ReminderListComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

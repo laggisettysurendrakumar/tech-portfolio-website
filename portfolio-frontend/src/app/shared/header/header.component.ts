@@ -2,6 +2,7 @@ import { Router } from "@angular/router";
 import { LoginService } from "../../core/services/login.service";
 import { ThemeService } from "../../core/services/theme.service";
 import { Component, OnInit } from "@angular/core";
+import { NotificationService } from "../../core/services/notification.service";
 
 @Component({
   selector: 'app-header',
@@ -18,8 +19,9 @@ export class HeaderComponent implements OnInit {
   constructor(
     private themeService: ThemeService,
     private loginService: LoginService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit(): void {
     this.themeService.isDarkMode$.subscribe(mode => {
@@ -39,6 +41,7 @@ export class HeaderComponent implements OnInit {
   toggleLoginStatus(): void {
     if (this.loginService.isLoggedIn()) {
       this.loginService.logout();
+      this.notificationService.showSuccess("Logged out successfully!");
       this.router.navigate(['/admin-login']);
     } else {
       this.router.navigate(['/admin-login']);
