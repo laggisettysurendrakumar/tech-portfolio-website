@@ -1,0 +1,90 @@
+<h2 class="my-4 text-center">Feedback Form</h2>
+
+<div class="d-flex justify-content-center mb-5">
+  <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" 
+        class="card p-4 shadow-sm bg-light" 
+        style="max-width: 700px; width: 100%;">
+    
+    <!-- Relationship -->
+    <div class="mb-4">
+      <label class="form-label fw-semibold">
+        <i class="bi bi-people-fill me-2"></i>Relationship
+      </label>
+      <select class="form-select" formControlName="relationship">
+        <option value="" disabled>Select your relationship</option>
+        <option>Teammate</option>
+        <option>Manager</option>
+        <option>Mentor</option>
+        <option>Other</option>
+      </select>
+      <div *ngIf="submitted && f['relationship'].errors" class="text-danger mt-1">
+        Relationship is required.
+      </div>
+    </div>
+
+    <!-- Ratings Row 1 -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4" *ngFor="let control of ['communicationRating', 'collaborationRating', 'technicalSkillRating']">
+        <label class="form-label fw-semibold">
+          <i class="bi bi-star-fill text-warning me-1"></i>{{ getLabel(control) }}
+        </label>
+        <input type="number" class="form-control" [formControlName]="control" min="1" max="5" />
+        <div *ngIf="submitted && f[control].errors" class="text-danger mt-1 small">
+          <div *ngIf="f[control].errors?.['required']">Rating is required.</div>
+          <div *ngIf="f[control].errors?.['min'] || f[control].errors?.['max']">Rating must be between 1 and 5.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ratings Row 2 -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-6" *ngFor="let control of ['codeQualityRating', 'helpfulnessRating']">
+        <label class="form-label fw-semibold">
+          <i class="bi bi-star-fill text-warning me-1"></i>{{ getLabel(control) }}
+        </label>
+        <input type="number" class="form-control" [formControlName]="control" min="1" max="5" />
+        <div *ngIf="submitted && f[control].errors" class="text-danger mt-1 small">
+          <div *ngIf="f[control].errors?.['required']">Rating is required.</div>
+          <div *ngIf="f[control].errors?.['min'] || f[control].errors?.['max']">Rating must be between 1 and 5.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Textareas -->
+    <div class="mb-4">
+      <label class="form-label fw-semibold">
+        <i class="bi bi-check2-circle me-2"></i>What Went Well
+      </label>
+      <textarea class="form-control" formControlName="whatWentWell" rows="2" placeholder="Share positives..."></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold">
+        <i class="bi bi-pencil-square me-2"></i>What Could Be Improved
+      </label>
+      <textarea class="form-control" formControlName="whatCouldBeImproved" rows="2" placeholder="Suggestions for improvement..."></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-semibold">
+        <i class="bi bi-envelope-heart me-2"></i>Farewell Note
+      </label>
+      <textarea class="form-control" formControlName="farewellNote" rows="3" placeholder="Your farewell message..."></textarea>
+    </div>
+
+    <!-- Name -->
+    <div class="mb-4">
+      <label class="form-label fw-semibold">
+        <i class="bi bi-person-fill me-2"></i>Your Name
+      </label>
+      <input type="text" class="form-control" formControlName="yourName" placeholder="Enter your name" />
+      <div *ngIf="submitted && f['yourName'].errors" class="text-danger mt-1">
+        Name is required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">
+      <i class="bi bi-send-fill me-2"></i>Submit Feedback
+    </button>
+  </form>
+</div>

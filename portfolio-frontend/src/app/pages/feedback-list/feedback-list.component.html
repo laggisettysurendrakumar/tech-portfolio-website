@@ -1,0 +1,56 @@
+<h2 class="text-center my-5 fw-bold text-secondary">Colleague Feedback List</h2>
+
+<div class="container">
+  <div class="table-responsive shadow rounded bg-white p-3">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="bg-primary text-white text-uppercase" style="font-size: 0.9rem;">
+        <tr>
+          <th scope="col" style="width: 40px; cursor: pointer; white-space: nowrap;" (click)="sortBy('index')">
+            #
+          </th>
+          <th scope="col" style="min-width: 150px; cursor: pointer; white-space: nowrap;" (click)="sortBy('yourName')">
+            Name
+          </th>
+          <th scope="col" style="min-width: 140px; cursor: pointer; white-space: nowrap;" (click)="sortBy('relationship')">
+            Relationship
+          </th>
+          <th scope="col" style="width: 130px; cursor: pointer; white-space: nowrap;" (click)="sortBy('communicationRating')">
+            Communication
+          </th>
+          <th scope="col" style="width: 130px; cursor: pointer; white-space: nowrap;" (click)="sortBy('collaborationRating')">
+            Collaboration
+          </th>
+          <th scope="col" style="width: 130px; cursor: pointer; white-space: nowrap;" (click)="sortBy('technicalSkillRating')">
+            Technical Skill
+          </th>
+          <th scope="col" style="width: 130px; cursor: pointer; white-space: nowrap;" (click)="sortBy('helpfulnessRating')">
+            Helpfulness
+          </th>
+          <th scope="col" style="min-width: 300px; white-space: normal;">
+            Farewell Note
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fb of feedbacksSorted; let i = index" [class.table-light]="i % 2 === 0">
+          <th scope="row" style="white-space: nowrap;">{{ i + 1 }}</th>
+          <td class="fw-semibold text-secondary">{{ fb.yourName }}</td>
+          <td>{{ fb.relationship }}</td>
+          <td>
+            <span class="badge bg-info text-dark">{{ fb.communicationRating }}</span>
+          </td>
+          <td>
+            <span class="badge bg-info text-dark">{{ fb.collaborationRating }}</span>
+          </td>
+          <td>
+            <span class="badge bg-info text-dark">{{ fb.technicalSkillRating }}</span>
+          </td>
+          <td>
+            <span class="badge bg-info text-dark">{{ fb.helpfulnessRating }}</span>
+          </td>
+          <td class="text-wrap" style="max-width: 350px; white-space: pre-wrap;">{{ fb.farewellNote }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

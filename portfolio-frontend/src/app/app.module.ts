@@ -24,6 +24,8 @@ import { reminderReducer } from './store/reminder/reminder.reducer';
 import { ReminderEffects } from './store/reminder/reminder.effects';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { NotificationComponent } from './shared/notification/notification.component';
+import { FeedbackFormComponent } from './pages/feedback-form/feedback-form.component';
+import { FeedbackListComponent } from './pages/feedback-list/feedback-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { NotificationComponent } from './shared/notification/notification.compon
     ContactSubmissionListComponent,
     AddReminderComponent,
     ReminderListComponent,
-    NotificationComponent
+    NotificationComponent,
+    FeedbackFormComponent,
+    FeedbackListComponent
   ],
   imports: [
     BrowserModule,

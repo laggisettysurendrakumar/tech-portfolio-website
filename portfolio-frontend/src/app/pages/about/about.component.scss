@@ -26,6 +26,12 @@
     color: var(--text-color);
   }
   
+  .feedback-btn:hover {
+  transform: scale(1.05);
+  background-color: #ffc107d9;
+  color: #000;
+  transition: all 0.3s ease;
+}
 
 
   

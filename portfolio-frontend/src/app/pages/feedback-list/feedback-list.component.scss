@@ -1,0 +1,9 @@
+  /* Make headers look clickable without icons */
+  th.sortable {
+    cursor: pointer;
+    transition: color 0.3s, border-bottom 0.3s;
+  }
+  th.sortable:hover {
+    color: #0d6efd; /* Bootstrap primary color */
+    border-bottom: 2px solid #0d6efd;
+  }

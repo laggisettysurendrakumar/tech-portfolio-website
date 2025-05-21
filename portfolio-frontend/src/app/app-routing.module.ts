@@ -10,6 +10,8 @@ import { ContactSubmissionListComponent } from './pages/contact-submission-list/
 import { AdminAuthGuard } from './core/guards/admin-auth.guard';
 import { ReminderListComponent } from './pages/reminder-list/reminder-list.component';
 import { AddReminderComponent } from './pages/add-reminder/add-reminder.component';
+import { FeedbackFormComponent } from './pages/feedback-form/feedback-form.component';
+import { FeedbackListComponent } from './pages/feedback-list/feedback-list.component';
 
 const routes: Routes = [  
   { path: '', component: HomeComponent, data: { title: 'Home | Surendra Kumar Portfolio' } },  
@@ -35,6 +37,13 @@ const routes: Routes = [
     canActivate: [AdminAuthGuard],
     data: { title: 'Add Reminder | Admin | Surendra Kumar Portfolio' } 
   },  
+  { path: 'feedback-form', component: FeedbackFormComponent ,
+    data: { title: 'Feedback Form | Surendra Kumar Portfolio' } 
+  },
+  { path: 'feedback-list', component: FeedbackListComponent ,
+     canActivate: [AdminAuthGuard],
+     data: { title: 'Feedback Form List | Admin | Surendra Kumar Portfolio' } 
+  },
   
   { path: '**', redirectTo: '', pathMatch: 'full' }  // Fallback for undefined routes
 ];
