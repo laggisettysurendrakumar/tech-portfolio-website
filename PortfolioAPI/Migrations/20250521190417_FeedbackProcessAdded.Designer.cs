@@ -12,8 +12,8 @@ using PortfolioAPI.Data;
 namespace PortfolioAPI.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    [Migration("20250512185120_AddedReminderCreatedDate")]
-    partial class AddedReminderCreatedDate
+    [Migration("20250521190417_FeedbackProcessAdded")]
+    partial class FeedbackProcessAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,54 @@ namespace PortfolioAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("PortfolioAPI.Models.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CodeQualityRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CollaborationRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommunicationRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FarewellNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HelpfulnessRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Relationship")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TechnicalSkillRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WhatCouldBeImproved")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WhatWentWell")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YourName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("PortfolioAPI.Models.JwtKey", b =>

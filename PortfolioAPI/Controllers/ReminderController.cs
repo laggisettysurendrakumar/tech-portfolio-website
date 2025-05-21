@@ -29,7 +29,9 @@ namespace PortfolioAPI.Controllers
                 _logger.LogInformation("GetAllReminderList method invoked at {Timestamp}", DateTime.UtcNow);
 
                 var reminders = _context.Reminders
-                    .OrderByDescending(r => r.CreatedDate).ToList();
+                    .OrderByDescending(r => r.Done)               // Done == true first
+                    .ThenByDescending(r => r.CreatedDate)         // Newest first within Done status
+                    .ToList();
 
                 if (reminders == null || !reminders.Any())
                 {

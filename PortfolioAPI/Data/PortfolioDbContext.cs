@@ -14,6 +14,8 @@ namespace PortfolioAPI.Data
 
         public DbSet<Reminder> Reminders { get; set; }
 
+        public DbSet<Feedback> Feedbacks => Set<Feedback>();
+
         // Optional: Seed data or configure via Fluent API here  
     }
 }

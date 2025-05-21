@@ -19,7 +19,8 @@ namespace PortfolioAPI.Migrations
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Done = table.Column<bool>(type: "bit", nullable: true)
+                    Done = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
