@@ -24,6 +24,10 @@ This project showcases my skills, projects, and background as a full-stack devel
 - MS SQL Server
 - SQLLite(optional)
 
+**3rd Party Integrations**
+- Implemented **SendGrid** integration for transactional and contact form email delivery with secure API key management.
+- Integrated **Twilio SMS service** for real-time user notifications and two-factor authentication (2FA).
+
 **Other Tools:**
 - Visual Studio / VS Code
 - Git & GitHub
@@ -35,31 +39,70 @@ This project showcases my skills, projects, and background as a full-stack devel
 
 ## 📁 Project Structure
 
-/codeby-surendra 
+/tech-portfolio-website
 
-│ ├── /client-app # Angular 19 Frontend 
+│
 
-│ └── src/ 
+├── /portfolio-frontend        # Angular 19 Frontend
 
-│ └── app/ 
+│   ├── /public/
 
-│ └── components/ 
+│   └── /src/
 
-│ └── services/ 
+│       ├── /app/
 
-│ ├── /server-app # ASP.NET Core MVC Backend 
+│       │   ├── /core/
 
-│ └── Controllers/ 
+│       │   │   ├── /guards/
 
-│ └── Models/ 
+│       │   │   ├── /interceptors/
 
-│ └── Views/ 
+│       │   │   └── /services/
 
-│ ├── README.md 
+│       │   ├── /models/
 
-├── .gitignore 
+│       │   ├── /pages/
+
+│       │   ├── /shared/
+
+│       │   └── /store/
+
+│       └── /environments/
+
+│
+
+├── /PortfolioAPI              # ASP.NET Core MVC Backend
+
+│   ├── /Controllers/
+
+│   ├── /Data/
+
+│   ├── /Encryption/
+
+│   ├── /HostedService/
+
+│   ├── /Middlewares/
+
+│   ├── /Migrations/
+
+│   ├── /Models/
+
+│   ├── /Properties/
+
+│   ├── /Resources/
+
+│   ├── /Services/
+
+│   └── /wwwroot/
+
+│
+
+├── README.md
+
+├── .gitignore
 
 └── LICENSE (optional)
+
 
 
 ## 🧪 How to Run the Project
@@ -105,6 +148,12 @@ Reinstall fresh dependencies
 Start the dev server without Angular's internal cache
 
 
+## 🔄 Prod Build 
+To build your Angular project for production, you can use the following command:
+```bash
+ng build --configuration production
+```
+Note: It will create the dist folder on the Angular root folder and it will place publised files with application name
 Frontend will run on: http://localhost:4200 (Port will be based on your system)
 
 Note : Make sure the API base URL in your Angular services matches your backend URL.
