@@ -12,6 +12,7 @@ using Serilog;
 using System;
 using System.Text;
 using Serilog.Exceptions;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace PortfolioAPI
 {
@@ -57,7 +58,7 @@ namespace PortfolioAPI
                 }
                 else
                 {
-                    crosOrginURL =  builder.Configuration["FrontendURL"]!;
+                    crosOrginURL = builder.Configuration["FrontendURL"]!;
                 }
                 options.AddPolicy("AllowFrontend", policy =>
                 {
@@ -111,6 +112,12 @@ namespace PortfolioAPI
             builder.Services.AddScoped<IEmailSender, SendGridEmailSender>();
             builder.Services.AddSingleton<ISmsSender, TwilioSmsSender>();
 
+            builder.Services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+            });
             var app = builder.Build();
 
             // Dynamically configure JwtBearer options after DI container is built
@@ -147,7 +154,13 @@ namespace PortfolioAPI
             app.UseAuthorization();
 
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=604800");
+                }
+            });
             app.MapControllers();
             app.MapFallbackToFile("index.html");
 
